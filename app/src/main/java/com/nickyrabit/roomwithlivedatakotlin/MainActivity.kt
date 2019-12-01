@@ -20,7 +20,7 @@ class MainActivity : AppCompatActivity(),CoroutineScope {
 
     private lateinit var job: Job
 
-lateinit var fuelPriceDatabase : FuelPriceDatabase
+    lateinit var fuelPriceDatabase : FuelPriceDatabase
 
 
     private val buttonChangeData: Button by lazy { findViewById(R.id.buttonChangeData) as Button }
@@ -36,7 +36,7 @@ lateinit var fuelPriceDatabase : FuelPriceDatabase
         job = Job() // create the Job
 
 
-        //
+        // creating an exception handler like below:
         val handler = CoroutineExceptionHandler { _, exception ->
             Log.d("TAG", "$exception handled !")
         }
