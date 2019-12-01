@@ -13,6 +13,11 @@ import com.nickyrabit.roomwithlivedatakotlin.model.PetrolPrice
 import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
 
+/**
+ Here we are using Kotlin Coroutine Scope
+ This enables us to cancel the task when we want cancel the task as soon as the activity is Destroyed
+** So to do that we extend Coroutines
+**/
 class MainActivity : AppCompatActivity(),CoroutineScope {
 
     override val coroutineContext: CoroutineContext
@@ -56,7 +61,7 @@ class MainActivity : AppCompatActivity(),CoroutineScope {
             })
 
 
-
+            //getting the input value
         buttonChangeData.setOnClickListener {
             //get input
             val price = PetrolPriceEditText.getText().toString().toDouble()
