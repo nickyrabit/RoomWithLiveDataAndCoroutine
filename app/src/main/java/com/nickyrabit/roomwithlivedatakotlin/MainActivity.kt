@@ -41,13 +41,15 @@ class MainActivity : AppCompatActivity(),CoroutineScope {
             Log.d("TAG", "$exception handled !")
         }
 
-
+        //initiate a database instance
         fuelPriceDatabase=   FuelPriceDatabase.invoke(this@MainActivity)
+
+        //placing an observer for the livedata we set on DAO
         fuelPriceDatabase.petrolPriceDao().getAllPrices().observe(this, Observer {
             Toast.makeText(this@MainActivity, "has been updated", Toast.LENGTH_SHORT).show()
-
+                //In Kotlin we dont have the onchanged method
             for (petrolPrice: PetrolPrice in it) {
-
+                //showing the changed value
                 displayTextView.setText(""+petrolPrice.fuel_price)
             }
 
