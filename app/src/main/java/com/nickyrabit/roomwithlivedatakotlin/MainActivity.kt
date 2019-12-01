@@ -19,15 +19,18 @@ import kotlin.coroutines.CoroutineContext
 ** So to do that we extend Coroutines
 **/
 class MainActivity : AppCompatActivity(),CoroutineScope {
+    //initializing a A background job.
+    private lateinit var job: Job
 
+    //initializing the coroutine scope
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.Main + job
 
-    private lateinit var job: Job
 
+    //db instance
     lateinit var fuelPriceDatabase : FuelPriceDatabase
 
-
+    //ui declarations
     private val buttonChangeData: Button by lazy { findViewById(R.id.buttonChangeData) as Button }
     private val PetrolPriceEditText: EditText by lazy { findViewById(R.id.PetrolPrice) as EditText }
     private val displayTextView: TextView by lazy { findViewById(R.id.displayTextView) as TextView }
@@ -67,7 +70,7 @@ class MainActivity : AppCompatActivity(),CoroutineScope {
             val price = PetrolPriceEditText.getText().toString().toDouble()
             val petrolPrice = PetrolPrice(1, price)
 
-            //
+            // Global Scopes are used when we want to run the funciton even if the carrying activity is destroyed.
             GlobalScope.launch(Dispatchers.Main + handler) {
                 petrolPriceInsert(petrolPrice)
             }
@@ -81,7 +84,7 @@ class MainActivity : AppCompatActivity(),CoroutineScope {
         //
         launch(Dispatchers.Default) {
             val ud = FuelPriceDatabase.invoke(context = applicationContext)
-
+            //Dispatcher Default hekp us to run this action async
             ud.petrolPriceDao().insertAll(petrolPrice)
             Log.v("TAG", "Insert COmplete" )
 
